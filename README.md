@@ -6,3 +6,6 @@ If you want install and test it send message in telegram @deepdarkman
 
 Stable full functional realese coming soon!
 
+### Screenshots
+![v0.0.1](https://i.imgur.com/reOq1uE.png)
+
