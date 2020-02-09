@@ -2,17 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b8aeb19-9c07-476f-81b3-60f879c02fc5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/design.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/design.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1XZ1h1g91JeIXF9fqKhTlbB5A1q" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -84,25 +96,37 @@
       <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state x="141" y="57" width="1084" height="710" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.30.1366.738@0.30.1366.738" timestamp="1581239110873" />
+    <state x="428" y="204" width="499" height="392" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1581253863122">
+      <screen x="0" y="30" width="1366" height="738" />
+    </state>
+    <state x="428" y="204" width="499" height="392" key="#com.intellij.fileTypes.FileTypeChooser/0.30.1366.738@0.30.1366.738" timestamp="1581253863122" />
+    <state x="416" y="148" width="524" height="504" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1581253103857">
+      <screen x="0" y="30" width="1366" height="738" />
+    </state>
+    <state x="416" y="148" width="524" height="504" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.30.1366.738@0.30.1366.738" timestamp="1581253103857" />
+    <state x="331" y="30" width="694" height="738" key="CommitChangelistDialog2" timestamp="1581257671705">
+      <screen x="0" y="30" width="1366" height="738" />
+    </state>
+    <state x="331" y="30" width="694" height="738" key="CommitChangelistDialog2/0.30.1366.738@0.30.1366.738" timestamp="1581257671705" />
     <state x="466" y="170" width="424" height="487" key="FileChooserDialogImpl" timestamp="1581239108397">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state x="466" y="170" width="424" height="487" key="FileChooserDialogImpl/0.30.1366.738@0.30.1366.738" timestamp="1581239108397" />
-    <state width="1343" height="173" key="GridCell.Tab.0.bottom" timestamp="1581239129567">
+    <state width="1343" height="172" key="GridCell.Tab.0.bottom" timestamp="1581256563592">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state width="1343" height="173" key="GridCell.Tab.0.bottom/0.30.1366.738@0.30.1366.738" timestamp="1581239129567" />
-    <state width="1343" height="173" key="GridCell.Tab.0.center" timestamp="1581239129566">
+    <state width="1343" height="172" key="GridCell.Tab.0.bottom/0.30.1366.738@0.30.1366.738" timestamp="1581256563592" />
+    <state width="1343" height="172" key="GridCell.Tab.0.center" timestamp="1581256563591">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state width="1343" height="173" key="GridCell.Tab.0.center/0.30.1366.738@0.30.1366.738" timestamp="1581239129566" />
-    <state width="1343" height="173" key="GridCell.Tab.0.left" timestamp="1581239129565">
+    <state width="1343" height="172" key="GridCell.Tab.0.center/0.30.1366.738@0.30.1366.738" timestamp="1581256563591" />
+    <state width="1343" height="172" key="GridCell.Tab.0.left" timestamp="1581256563590">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state width="1343" height="173" key="GridCell.Tab.0.left/0.30.1366.738@0.30.1366.738" timestamp="1581239129565" />
-    <state width="1343" height="173" key="GridCell.Tab.0.right" timestamp="1581239129566">
+    <state width="1343" height="172" key="GridCell.Tab.0.left/0.30.1366.738@0.30.1366.738" timestamp="1581256563590" />
+    <state width="1343" height="172" key="GridCell.Tab.0.right" timestamp="1581256563591">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state width="1343" height="173" key="GridCell.Tab.0.right/0.30.1366.738@0.30.1366.738" timestamp="1581239129566" />
+    <state width="1343" height="172" key="GridCell.Tab.0.right/0.30.1366.738@0.30.1366.738" timestamp="1581256563591" />
   </component>
 </project>

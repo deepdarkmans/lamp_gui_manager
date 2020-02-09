@@ -4,19 +4,20 @@ import sys
 from PyQt5 import QtWidgets
 from gui import design
 import os
+import controllers.sqlite_controller
 import subprocess
-
+import sqlite3
 
 class appGUI(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.get_hosts()
-        #
+        self.set_table()
         self.chooseFolderButton.clicked.connect(self.browse_folder)
         self.chooseWWWButton.clicked.connect(self.browse_www_folder)
         self.createProjectButton.clicked.connect(self.create_host)
-        self.refreshHostsButton.clicked.connect(self.get_hosts)
+        self.refreshHostsButton.clicked.connect(self.add_data)
 
     def browse_folder(self):
         self.projrctFolderLine.clear()
@@ -78,6 +79,38 @@ class appGUI(QtWidgets.QMainWindow, design.Ui_MainWindow):
         sudopass, ok = QtWidgets.QInputDialog.getText(self, 'Set Sudo Password', 'Sudo password:')
         if ok:
             return sudopass
+
+    def set_table(self):
+        table = self.get_projects_data()
+        rows = table.fetchall()
+        rows_num = len(rows)
+        print(rows_num)
+        self.tableProjects.setRowCount(rows_num)
+        self.tableProjects.setColumnCount(7)
+        self.tableProjects.setHorizontalHeaderLabels(["Project name", "Host name", "Project folder", "WWW Folder", "A2 config file", "Port", "Status"])
+        for row in rows:
+            inx = rows.index(row)
+            print(row[6])
+            self.tableProjects.insertRow(inx)
+            # add more if there is more columns in the database.
+            self.tableProjects.setItem(inx, 0, QtWidgets.QTableWidgetItem(row[1]))
+            self.tableProjects.setItem(inx, 1, QtWidgets.QTableWidgetItem(row[2]))
+            self.tableProjects.setItem(inx, 2, QtWidgets.QTableWidgetItem(row[3]))
+            self.tableProjects.setItem(inx, 3, QtWidgets.QTableWidgetItem(row[4]))
+            self.tableProjects.setItem(inx, 4, QtWidgets.QTableWidgetItem(row[5]))
+            self.tableProjects.setItem(inx, 5, QtWidgets.QTableWidgetItem(str(row[6])))
+            self.tableProjects.setItem(inx, 6, QtWidgets.QTableWidgetItem(str(row[7])))
+
+    def get_projects_data(self):
+        return controllers.sqlite_controller.getDatabase()
+
+    def add_data(self):
+        controllers.sqlite_controller.addData()
+        # conn = sqlite3.connect('databases/projects')
+        # cursor = conn.cursor()
+        # add = cursor.execute("""INSERT INTO projects (name, host_name, folder, www_folder, port, status)
+        #           VALUES('test','test.local','folder','www', 80, 1) """)
+        # print(add)
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
