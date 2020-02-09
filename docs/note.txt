@@ -1,0 +1,12 @@
+projrctFolderLine
+chooseFolderButton
+confArea
+projectNameLine
+projrctWWWrLine
+chooseWWWButton
+radioExistFolder
+radioGit
+repositoryLine
+hostLine
+createProjectButton
+refreshHostsButton
