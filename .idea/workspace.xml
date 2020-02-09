@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6b8aeb19-9c07-476f-81b3-60f879c02fc5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/design.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/design.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,5 +127,9 @@
       <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state width="1343" height="172" key="GridCell.Tab.0.right/0.30.1366.738@0.30.1366.738" timestamp="1581256563591" />
+    <state x="376" y="226" key="com.intellij.ide.util.TipDialog" timestamp="1581263627252">
+      <screen x="0" y="30" width="1366" height="738" />
+    </state>
+    <state x="376" y="226" key="com.intellij.ide.util.TipDialog/0.30.1366.738@0.30.1366.738" timestamp="1581263627252" />
   </component>
 </project>
