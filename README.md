@@ -1,4 +1,4 @@
-# LAMP GUI Manager ![v0.0.1](https://img.shields.io/badge/version-0.0.1%20dev-blue) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+# LAMP GUI Manager ![v0.0.1](https://img.shields.io/badge/version-0.0.1%20dev-blue) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) ![Ubuntu](https://img.shields.io/badge/dev%20os-ubuntu%2018.04-orange)
 create virtualhosts, manage existed, change php versions, manage mysql databases
 
 This is the first dev version.
