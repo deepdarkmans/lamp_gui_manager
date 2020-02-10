@@ -1,4 +1,4 @@
-# LAMP GUI Manager v0.0.1 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+# LAMP GUI Manager v0.0.1 ![v0.0.1](https://img.shields.io/pypi/v/0.0.1)[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 create virtualhosts, manage existed, change php versions, manage mysql databases
 
 This is the first dev version.
