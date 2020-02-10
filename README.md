@@ -1,5 +1,5 @@
 # LAMP GUI Manager ![v0.0.1](https://img.shields.io/badge/version-0.0.1%20dev-blue) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) ![Ubuntu](https://img.shields.io/badge/dev%20os-ubuntu%2018.04-orange)
-create virtualhosts, manage existed, change php versions, manage mysql databases
+To create virtualhosts, manage existed, change php versions, manage mysql databases and other functions. Like MAMP))
 
 This is the first dev version.
 If you want install and test it send message in telegram @deepdarkman [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/Naereen/ama)
