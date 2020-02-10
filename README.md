@@ -1,4 +1,4 @@
-# Python3 LAMP GUI Manager
+# LAMP GUI Manager (Python3) v0.0.1
 create virtualhosts, manage existed, change php versions, manage mysql databases
 
 This is the first dev version.
