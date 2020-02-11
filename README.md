@@ -11,14 +11,18 @@ Stable full functional realese coming soon!
 
 ### Screenshots
 Projects & Servers
+
 ![v0.0.3](https://i.imgur.com/9HQHWP6.png)
 
 Tools
+
 ![v0.0.3](https://i.imgur.com/TFSeLYm.png)
 
 Logs
+
 ![v0.0.3](https://i.imgur.com/N7WwN5V.png)
 
 Settings
+
 ![v0.0.3](https://i.imgur.com/NnMqbqo.png)
 
