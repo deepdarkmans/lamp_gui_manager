@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Python3 LAMP GUI MANAGER v0.0.1</string>
+   <string>LAMP GUI MANAGER v0.0.3</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">

@@ -75,10 +75,16 @@ class AppGui(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.groupStatus = QtWidgets.QButtonGroup()
         self.groupStatus.addButton(self.radioButtonProjOn)
         self.groupStatus.addButton(self.radioButtonProjOff)
-        self.groupStatus = QtWidgets.QButtonGroup()
+        self.groupCreate = QtWidgets.QButtonGroup()
+        self.groupCreate.addButton(self.radioExistFolder)
+        self.groupCreate.addButton(self.radioGit)
+        self.groupFramework = QtWidgets.QButtonGroup()
+        self.groupFramework.addButton(self.radioLuya)
+        self.groupFramework.addButton(self.radioYii)
+        self.groupFramework.addButton(self.radioWP)
         self.chooseFolderButton.clicked.connect(self.browse_folder)
         self.chooseWWWButton.clicked.connect(self.browse_www_folder)
-        self.saveProjectButton.clicked.connect(self.create_host)
+        self.saveProjectButton.clicked.connect(self.create_edit_host)
         self.treeServersProjects.itemClicked.connect(self.fill_fields)
         self.radioExistFolder.toggled.connect(self.clear_fields)
 
@@ -107,6 +113,7 @@ class AppGui(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     def fill_fields(self, it, col):
         if it.text(col) == 'Apache' or it.text(col) == 'MySQL':
+            self.clear_fields()
             return
         data = choose_project(it, col)
         row = data[0]
@@ -120,21 +127,20 @@ class AppGui(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.radioButtonProjOn.setChecked(False)
         self.radioButtonProjOff.setChecked(False)
         self.groupStatus.setExclusive(True)
-        self.groupProjCreate.setExclusive(False)
+        self.groupCreate.setExclusive(False)
         self.radioExistFolder.setChecked(False)
-        self.groupProjCreate.setExclusive(True)
         self.radioGit.setChecked(False)
-        self.groupFrame.setExclusive(False)
+        self.groupCreate.setExclusive(True)
+        self.groupFramework.setExclusive(False)
         self.radioLuya.setChecked(False)
         self.radioYii.setChecked(False)
         self.radioWP.setChecked(False)
-        self.groupFrame.setExclusive(True)
+        self.groupFramework.setExclusive(True)
         self.repositoryLine.setText(get_git_url(row[3]))
         if row[7] == 1:
             self.radioButtonProjOn.setChecked(True)
         if row[7] == 0:
             self.radioButtonProjOff.setChecked(True)
-
         if row[9] == 1:
             self.radioLuya.setChecked(True)
         if row[9] == 2:
@@ -145,15 +151,20 @@ class AppGui(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def clear_fields(self):
         self.projectNameLine.clear()
         self.hostLine.clear()
-        self.lineIP.clear()
-        self.linePort.clear()
+        self.lineIP.setText('127.0.0.1')
+        self.linePort.setText('80')
         self.projrctFolderLine.clear()
         self.projrctWWWrLine.clear()
+        self.repositoryLine.clear()
+        self.groupStatus.setExclusive(False)
         self.radioButtonProjOn.setChecked(False)
         self.radioButtonProjOff.setChecked(False)
+        self.groupStatus.setExclusive(True)
+        self.groupFramework.setExclusive(False)
         self.radioLuya.setChecked(False)
         self.radioYii.setChecked(False)
         self.radioWP.setChecked(False)
+        self.groupFramework.setExclusive(True)
 
     def browse_folder(self):
         self.projrctFolderLine.clear()
@@ -168,48 +179,77 @@ class AppGui(QtWidgets.QMainWindow, design.Ui_MainWindow):
         if directory:
             self.projrctWWWrLine.setText(directory)
 
-    def project_type_choose(self):
+    def project_create_from(self):
         if self.radioExistFolder.isChecked():
             return 1
         if self.radioGit.isChecked():
             return 2
+        return 0
 
-    def create_host(self):
+    def create_edit_host(self):
         project_name = self.projectNameLine.text()
+        git = self.repositoryLine.text()
         host_name = self.hostLine.text()
+        ip = self.lineIP.text()
+        port = self.linePort.text()
         project_folder = self.projrctFolderLine.text()
         www_folder = self.projrctWWWrLine.text()
+        action = self.project_create_from()
         if not project_name or project_name is None or host_name == '' or host_name is None or project_folder == '' or \
                 project_folder is None:
             QtWidgets.QMessageBox.about(self, "Error", "Not set:\nNo sudo pass\nProject name\nor\nHost "
                                                        "name\nor\nProject folder")
         else:
-            if self.project_type_choose() == 1:
+            conf_file = '<VirtualHost *:' + port + '>\nServerName ' + host_name + '\nServerAdmin\nwebmaster@localhost' \
+                                                                                  '\nDocumentRoot ' + www_folder + \
+                        '\n<Directory \"' + www_folder + '\">\nAllowOverride All\nRequire all ' \
+                                                         'granted\n</Directory>\nErrorLog ${' \
+                                                         'APACHE_LOG_DIR}/error.log\nCustomLog ${' \
+                                                         'APACHE_LOG_DIR}/access.log combined\n</VirtualHost> '
+            if action == 1:
                 if not www_folder or www_folder is None:
                     QtWidgets.QMessageBox.about(self, "Error", "Not set:\nProject www folder")
                 else:
                     conf = open('/etc/apache2/sites-available/' + project_name + '.conf', 'w')
-                    conf.write('<VirtualHost *:80>\nServerName ' + host_name + '\nServerAdmin '
-                                                                               'webmaster@localhost\nDocumentRoot ' +
-                               www_folder + '\n<Directory \"' + www_folder + '\">\nAllowOverride All\nRequire all '
-                                                                             'granted\n</Directory>\nErrorLog ${'
-                                                                             'APACHE_LOG_DIR}/error.log\nCustomLog ${'
-                                                                             'APACHE_LOG_DIR}/access.log '
-                                                                             'combined\n</VirtualHost>')
+                    conf.write(conf_file)
                     conf.close()
                     os.system('a2ensite ' + project_name + '.conf')
                     os.system('systemctl reload apache2')
                     hosts = open('/etc/hosts', 'a')
-                    hosts.write('127.0.0.1  ' + project_name + '.local\n')
+                    hosts.write(ip + ' ' + host_name + '\n')
                     hosts.close()
-                    self.get_hosts()
-                    add_data(project_name, host_name, project_folder, www_folder, project_name + '.conf', 80, 1)
+                    add_data(project_name, host_name, project_folder, www_folder, project_name + '.conf', int(port), 1)
                     QtWidgets.QMessageBox.about(self, "Success", "Success")
-                    self.set_table()
-            elif self.project_type_choose() == 2:
+                    self.set_projects_tree()
+            elif action == 2:
                 QtWidgets.QMessageBox.about(self, "Error", "Not set:\nProject www folder!!!!")
+            elif action == 0:
+                os.system('a2dissite ' + project_name + '.conf')
+                os.system('systemctl reload apache2')
+                os.system('rm /etc/apache2/sites-available/' + project_name + '.conf')
+                hosts_file = open('/etc/hosts', 'r')
+                hosts_rows = hosts_file.readlines()
+                hosts_file.close()
+                os.system('rm /etc/hosts')
+                for row in hosts_rows:
+                    if host_name in row:
+                        continue
+                    hosts = open('/etc/hosts', 'a')
+                    hosts.write(row)
+                    hosts.close()
+                conf = open('/etc/apache2/sites-available/' + project_name + '.conf', 'w')
+                conf.write(conf_file)
+                conf.close()
+                os.system('a2ensite ' + project_name + '.conf')
+                os.system('systemctl reload apache2')
+                hosts = open('/etc/hosts', 'a')
+                hosts.write(ip + ' ' + host_name + '\n')
+                hosts.close()
+                add_data(project_name, host_name, project_folder, www_folder, project_name + '.conf', int(port), 1)
+                QtWidgets.QMessageBox.about(self, "Success", "Success")
+                self.set_projects_tree()
             else:
-                QtWidgets.QMessageBox.about(self, "Error", "Not set:\nProject type")
+                QtWidgets.QMessageBox.about(self, "Error", "Error!!!")
 
     def set_sudo_pass(self):
         if os.geteuid() != 0:

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/design003.ui'
+# Form implementation generated from reading ui file 'gui/ui/design003.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
@@ -885,7 +885,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Python3 LAMP GUI MANAGER v0.0.1"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "LAMP GUI MANAGER v0.0.3"))
         self.treeServersProjects.headerItem().setText(0, _translate("MainWindow", "Projects & Servers"))
         __sortingEnabled = self.treeServersProjects.isSortingEnabled()
         self.treeServersProjects.setSortingEnabled(False)
