@@ -6,6 +6,7 @@ from gui import design
 import os
 import controllers.sqlite_controller
 import subprocess
+import controllers.git_controller
 
 
 def get_projects_data():
@@ -63,6 +64,14 @@ def get_git_url(folder):
             url = line[a:]
             url = url[6:]
             return url
+
+
+# def sudo_run():
+#     euid = os.geteuid()
+#     if euid != 0:
+#         args = ['sudo', sys.executable] + sys.argv + [os.environ]
+#         # the next line replaces the currently-running process with the sudo
+#         os.execlpe('sudo', *args)
 
 
 class AppGui(QtWidgets.QMainWindow, design.Ui_MainWindow):
@@ -200,9 +209,15 @@ class AppGui(QtWidgets.QMainWindow, design.Ui_MainWindow):
             QtWidgets.QMessageBox.about(self, "Error", "Not set:\nNo sudo pass\nProject name\nor\nHost "
                                                        "name\nor\nProject folder")
         else:
-            conf_file = '<VirtualHost *:' + port + '>\nServerName ' + host_name + '\nServerAdmin\nwebmaster@localhost' \
+            conf_file = '<VirtualHost ' + ip + ':' + port + '>\nServerName ' + host_name + '\nServerAdmin webmaster@localhost' \
                                                                                   '\nDocumentRoot ' + www_folder + \
                         '\n<Directory \"' + www_folder + '\">\nAllowOverride All\nRequire all ' \
+                                                         'granted\n</Directory>\nErrorLog ${' \
+                                                         'APACHE_LOG_DIR}/error.log\nCustomLog ${' \
+                                                         'APACHE_LOG_DIR}/access.log combined\n</VirtualHost> '
+            conf_file_git = '<VirtualHost ' + ip + ':' + port + '>\nServerName ' + host_name + '\nServerAdmin webmaster@localhost' \
+                                                                                  '\nDocumentRoot ' + project_folder + '/'+ 'public_html' + \
+                        '\n<Directory \"' + project_folder + '/' + 'public_html' + '\">\nAllowOverride All\nRequire all ' \
                                                          'granted\n</Directory>\nErrorLog ${' \
                                                          'APACHE_LOG_DIR}/error.log\nCustomLog ${' \
                                                          'APACHE_LOG_DIR}/access.log combined\n</VirtualHost> '
@@ -222,7 +237,21 @@ class AppGui(QtWidgets.QMainWindow, design.Ui_MainWindow):
                     QtWidgets.QMessageBox.about(self, "Success", "Success")
                     self.set_projects_tree()
             elif action == 2:
-                QtWidgets.QMessageBox.about(self, "Error", "Not set:\nProject www folder!!!!")
+                if not project_folder or project_folder is None:
+                    QtWidgets.QMessageBox.about(self, "Error", "Not set:\nProjects folder!!!!")
+                else:
+                    clone = controllers.git_controller.create_project_from_git(git, project_folder)
+                    conf = open('/etc/apache2/sites-available/' + project_name + '.conf', 'w')
+                    conf.write(conf_file_git)
+                    conf.close()
+                    os.system('a2ensite ' + project_name + '.conf')
+                    os.system('systemctl reload apache2')
+                    hosts = open('/etc/hosts', 'a')
+                    hosts.write(ip + ' ' + host_name + '\n')
+                    hosts.close()
+                    add_data(project_name, host_name, project_folder, project_folder + '/' + 'public_html', project_name + '.conf', int(port), 1)
+                    QtWidgets.QMessageBox.about(self, "Success", "Success")
+                    self.set_projects_tree()
             elif action == 0:
                 os.system('a2dissite ' + project_name + '.conf')
                 os.system('systemctl reload apache2')
@@ -251,13 +280,13 @@ class AppGui(QtWidgets.QMainWindow, design.Ui_MainWindow):
             else:
                 QtWidgets.QMessageBox.about(self, "Error", "Error!!!")
 
-    def set_sudo_pass(self):
-        if os.geteuid() != 0:
-            command = [sys.argv[0], sys.argv]
-            os.execvp('sudo', ['sudo', 'python3'] + command)
-        surpass, ok = QtWidgets.QInputDialog.getText(self, 'Set Sudo Password', 'Sudo password:')
-        if ok:
-            return surpass
+    # def set_sudo_pass(self):
+    #     if os.geteuid() != 0:
+    #         command = [sys.argv[0], sys.argv]
+    #         os.execvp('sudo', ['sudo', 'python3'] + command)
+    #     surpass, ok = QtWidgets.QInputDialog.getText(self, 'Set Sudo Password', 'Sudo password:')
+    #     if ok:
+    #         return surpass
 
 
 def main():
